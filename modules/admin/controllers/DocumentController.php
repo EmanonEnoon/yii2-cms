@@ -98,7 +98,7 @@ class DocumentController extends Controller
         $searchModel = new DocumentSearch(['status' => Document::STATUS_DRAFT]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('my', [
+        return $this->render('draft-box', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -113,7 +113,7 @@ class DocumentController extends Controller
         $searchModel = new DocumentSearch(['status' => Document::STATUS_EXAMINE]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('my', [
+        return $this->render('examine', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

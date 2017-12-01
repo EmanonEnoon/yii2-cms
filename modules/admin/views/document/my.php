@@ -48,17 +48,22 @@ CrudAsset::register($this);
                 ],
                 [
                     'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'title',
+                ],
+                [
+                    'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'type',
+                    'value' => 'typeLabel',
+                ],
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'category_id',
+                    'value' => 'category.title',
                 ],
                 [
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'level',
                 ],
-//    [
-//        'class' => '\kartik\grid\DataColumn',
-//        'attribute' => 'category_id',
-//        'value' => 'category.title',
-//    ],
 //    [
 //        'class' => '\kartik\grid\DataColumn',
 //        'attribute' => 'description',
@@ -111,25 +116,28 @@ CrudAsset::register($this);
                 // 'class'=>'\kartik\grid\DataColumn',
                 // 'attribute'=>'created_at:datetime',
                 // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'updated_at:datetime',
-                // ],
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'format' => ['datetime'],
+                    'attribute' => 'updated_at',
+                ],
                 // [
                 // 'class'=>'\kartik\grid\DataColumn',
                 // 'attribute'=>'created_by',
                 // ],
+//                [
+//                    'class' => '\kartik\grid\DataColumn',
+//                    'attribute' => 'updated_by',
+//                    'value' => 'updatedBy.username'
+//                ],
                 [
                     'class' => '\kartik\grid\DataColumn',
-                    'attribute' => 'updated_by',
+                    'attribute' => 'view',
                 ],
                 [
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'status',
-                ],
-                [
-                    'class' => '\kartik\grid\DataColumn',
-                    'attribute' => 'view',
+                    'value' => 'statusLabel',
                 ],
                 [
                     'class' => 'kartik\grid\ActionColumn',

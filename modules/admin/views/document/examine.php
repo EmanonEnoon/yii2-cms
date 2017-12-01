@@ -1,6 +1,5 @@
 <?php
 
-use app\widgets\IndexPageButton;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 use johnitvn\ajaxcrud\CrudAsset;
 use kartik\grid\GridView;
@@ -13,7 +12,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $category \app\models\Category */
 
-$this->title = Yii::t('cms', $category->title);
+$this->title = Yii::t('cms', '待审核');
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -49,17 +48,23 @@ CrudAsset::register($this);
                 ],
                 [
                     'class' => '\kartik\grid\DataColumn',
-                    'attribute' => 'type',
+                    'attribute' => 'created_by',
+                    'value' => 'createdBy.username',
                 ],
                 [
                     'class' => '\kartik\grid\DataColumn',
-                    'attribute' => 'level',
+                    'attribute' => 'type',
+                    'value' => 'typeLabel',
                 ],
-//    [
-//        'class' => '\kartik\grid\DataColumn',
-//        'attribute' => 'category_id',
-//        'value' => 'category.title',
-//    ],
+//                [
+//                    'class' => '\kartik\grid\DataColumn',
+//                    'attribute' => 'level',
+//                ],
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'attribute' => 'category_id',
+                    'value' => 'category.title',
+                ],
 //    [
 //        'class' => '\kartik\grid\DataColumn',
 //        'attribute' => 'description',
@@ -108,26 +113,27 @@ CrudAsset::register($this);
                 // 'class'=>'\kartik\grid\DataColumn',
                 // 'attribute'=>'extend',
                 // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'created_at:datetime',
-                // ],
+                [
+                    'class' => '\kartik\grid\DataColumn',
+                    'format' => ['datetime'],
+                    'attribute' => 'created_at',
+                ],
                 // [
                 // 'class'=>'\kartik\grid\DataColumn',
                 // 'attribute'=>'updated_at:datetime',
                 // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'created_by',
-                // ],
-                [
-                    'class' => '\kartik\grid\DataColumn',
-                    'attribute' => 'updated_by',
-                ],
-                [
-                    'class' => '\kartik\grid\DataColumn',
-                    'attribute' => 'status',
-                ],
+//                [
+//                    'class' => '\kartik\grid\DataColumn',
+//                    'attribute' => 'created_by',
+//                ],
+//                [
+//                    'class' => '\kartik\grid\DataColumn',
+//                    'attribute' => 'updated_by',
+//                ],
+//                [
+//                    'class' => '\kartik\grid\DataColumn',
+//                    'attribute' => 'status',
+//                ],
                 [
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'view',
@@ -152,7 +158,7 @@ CrudAsset::register($this);
             ],
             'toolbar' => [
                 [
-                    'content' => IndexPageButton::widget(['category' => $category])
+//                    'content' => IndexPageButton::widget(['category' => $category])
                 ],
             ],
             'striped' => true,
