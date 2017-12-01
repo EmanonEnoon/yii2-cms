@@ -23,11 +23,12 @@ use yii\helpers\Inflector;
 class GController extends Controller
 {
     public $table;
+    public $model;
 
     public function options($actionID)
     {
         return array_merge(parent::options($actionID), [
-            'table'
+            'table', 'model'
         ]);
     }
 
@@ -69,22 +70,36 @@ class GController extends Controller
 
     public function actionAjaxCrud()
     {
-        $fs = new \FilesystemIterator(Yii::$app->basePath . '/models');
-        foreach ($fs as $f) {
-            $fileName = $f->getBaseName('.php');
+        if ($this->model) {
             Yii::$app->runAction('gii/ajaxcrud', [
                 'interactive' => false,
-                'modelClass' => 'app\models\\' . $fileName,
-                'controllerClass' => 'app\modules\admin\controllers\\' . $fileName . 'Controller',
-                'viewPath' => '@app/modules/admin/views/' . Inflector::camel2id($fileName),
-                'searchModelClass' => 'app\models\searches\\' . $fileName . 'Search',
+                'modelClass' => 'app\models\\' . $this->model,
+                'controllerClass' => 'app\modules\admin\controllers\\' . $this->model . 'Controller',
+                'viewPath' => '@app/modules/admin/views/' . Inflector::camel2id($this->model),
+                'searchModelClass' => 'app\models\searches\\' . $this->model . 'Search',
             ]);
+        } else {
+            $fs = new \FilesystemIterator(Yii::$app->basePath . '/models');
+            foreach ($fs as $f) {
+                $fileName = $f->getBaseName('.php');
+                Yii::$app->runAction('gii/ajaxcrud', [
+                    'interactive' => false,
+                    'modelClass' => 'app\models\\' . $fileName,
+                    'controllerClass' => 'app\modules\admin\controllers\\' . $fileName . 'Controller',
+                    'viewPath' => '@app/modules/admin/views/' . Inflector::camel2id($fileName),
+                    'searchModelClass' => 'app\models\searches\\' . $fileName . 'Search',
+                ]);
+            }
         }
     }
 
     public function actionR()
     {
+        Yii::$app->runAction('migrate/down', ['interactive' => false, 'migrationPath' => '@yii/rbac/migrations']);
+        Yii::$app->runAction('migrate/down', ['interactive' => false, 'migrationPath' => '@yii/rbac/migrations']);
         Yii::$app->runAction('migrate/down', ['interactive' => false]);
+
         Yii::$app->runAction('migrate/up', ['interactive' => false]);
+        Yii::$app->runAction('migrate/up', ['interactive' => false, 'migrationPath' => '@yii/rbac/migrations']);
     }
 }
