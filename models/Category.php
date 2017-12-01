@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\traits\LevelSort;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
@@ -11,6 +12,8 @@ use yii\helpers\ArrayHelper;
  */
 class Category extends \app\models\gii\Category
 {
+    use LevelSort;
+
     const ALLOW_PUBLISH_DISABLE = '0';
     const ALLOW_PUBLISH_ONLY_FRONTEND = '1';
     const ALLOW_PUBLISH_ONLY_BACKEND = '2';
@@ -58,6 +61,7 @@ class Category extends \app\models\gii\Category
     {
         $rules = parent::rules();
         $rules[] = [['level'], 'filter', 'filter' => function ($value) {
+            $value = 1;
             if ($this->parent_id) {
                 return $this->parent->level + 1;
             }
@@ -82,20 +86,6 @@ class Category extends \app\models\gii\Category
 
         return $parent;
     }
-
-    public static function sort($categories, $pid = null)
-    {
-        $result = [];
-        foreach ($categories as $category) {
-            if ($category->parent_id == $pid) {
-                $result[] = $category;
-                $result = array_merge($result, static::sort($categories, $category->id));
-            }
-        }
-
-        return $result;
-    }
-
 
     public function getAllowPublishLabel()
     {
