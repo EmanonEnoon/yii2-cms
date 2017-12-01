@@ -9,6 +9,7 @@ class m171125_124845_init extends Migration
 {
     public $tables = [
         'config' => '{{%config}}',
+        'menu' => '{{%menu}}',
         'user' => '{{%user}}',
         'file' => '{{%file}}',
         'model' => '{{%model}}',
@@ -27,8 +28,9 @@ class m171125_124845_init extends Migration
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=MyISAM';
         }
+
         $this->createTable($this->tables['config'], [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull()->comment('配置名称'),
@@ -42,6 +44,15 @@ class m171125_124845_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(1)->comment('状态'),
             'created_at' => $this->integer()->comment('创建时间'),
             'updated_at' => $this->integer()->comment('更新时间'),
+        ], $tableOptions);
+        $this->createTable($this->tables['menu'], [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(128)->notNull()->comment('菜单名'),
+            'parent_id' => $this->integer()->comment('上级菜单'),
+            'route' => $this->string()->comment('路由'),
+            'order' => $this->integer()->comment('排序'),
+            'data' => $this->binary(),
+            'level' => $this->smallInteger()->defaultValue(1)->comment('层级'),
         ], $tableOptions);
         $this->createTable($this->tables['user'], [
             'id' => $this->primaryKey(),
@@ -152,18 +163,20 @@ class m171125_124845_init extends Migration
         $this->addPrimaryKey('', $this->tables['document_article'], 'document_id');
         $this->addPrimaryKey('', $this->tables['document_download'], 'document_id');
 
-        $this->addForeignKey('category_ibfk_1', $this->tables['category'], 'parent_id', $this->tables['category'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_ibfk_2', $this->tables['document'], 'created_by', $this->tables['user'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_ibfk_3', $this->tables['document'], 'updated_by', $this->tables['user'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_ibfk_9', $this->tables['document'], 'category_id', $this->tables['category'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_article_ibfk_4', $this->tables['document_article'], 'document_id', $this->tables['document'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_download_ibfk_5', $this->tables['document_download'], 'document_id', $this->tables['document'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('category_ibfk_6', $this->tables['category'], 'parent_id', $this->tables['category'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('channel_ibfk_7', $this->tables['channel'], 'parent_id', $this->tables['channel'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_download_ibfk_8', $this->tables['document_download'], 'file_id', $this->tables['file'], 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('document_download_ibfk_10', $this->tables['document'], 'model_id', $this->tables['model'], 'id', 'CASCADE', 'CASCADE');
-
         $this->insertData();
+
+        $this->addForeignKey('category_ibfk_1', $this->tables['category'], 'parent_id', $this->tables['category'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_ibfk_1', $this->tables['document'], 'created_by', $this->tables['user'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_ibfk_2', $this->tables['document'], 'updated_by', $this->tables['user'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_ibfk_3', $this->tables['document'], 'category_id', $this->tables['category'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_article_ibfk_1', $this->tables['document_article'], 'document_id', $this->tables['document'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_download_ibfk_2', $this->tables['document_download'], 'document_id', $this->tables['document'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('category_ibfk_1', $this->tables['category'], 'parent_id', $this->tables['category'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('channel_ibfk_1', $this->tables['channel'], 'parent_id', $this->tables['channel'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_download_ibfk_1', $this->tables['document_download'], 'file_id', $this->tables['file'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('document_download_ibfk_2', $this->tables['document'], 'model_id', $this->tables['model'], 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('menu_ibfk_1', $this->tables['menu'], 'parent_id', $this->tables['menu'], 'id', 'CASCADE', 'CASCADE');
+
     }
 
     public function insertData()
