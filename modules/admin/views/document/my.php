@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Document;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 use johnitvn\ajaxcrud\CrudAsset;
 use kartik\grid\GridView;
@@ -141,6 +142,7 @@ CrudAsset::register($this);
                 ],
                 [
                     'class' => 'kartik\grid\ActionColumn',
+                    'template' => '{update} {toggle} {delete}',
                     'dropdown' => false,
                     'vAlign' => 'middle',
                     'urlCreator' => function ($action, $model, $key, $index) {
@@ -154,6 +156,24 @@ CrudAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'data-confirm-title' => '确认',
                         'data-confirm-message' => 'Are you sure want to delete this item'],
+                    'buttons' => [
+                        'toggle' => function ($url, Document $model, $key) {
+                            $toggleUrl = [
+                                Document::STATUS_ACTIVE => 'disable',
+                                Document::STATUS_DISABLE => 'active',
+                                Document::STATUS_EXAMINE => 'active',
+                            ];
+                            $toggleIcon = [
+                                Document::STATUS_ACTIVE => 'glyphicon glyphicon-ban-circle',
+                                Document::STATUS_DISABLE => 'glyphicon glyphicon-ok-circle',
+                                Document::STATUS_EXAMINE => 'glyphicon glyphicon-check',
+                            ];
+                            $icon = Html::tag('span', '', ['class' => $toggleIcon[$model->status]]);
+                            $url = Url::to([$toggleUrl[$model->status], 'id' => $key]);
+                            $option = ['role' => 'modal-remote', 'title' => $model->toggleStatusLabel];
+                            return Html::a($icon, $url, $option);
+                        }
+                    ],
                 ],
 
             ],

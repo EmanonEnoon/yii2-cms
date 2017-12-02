@@ -140,6 +140,7 @@ CrudAsset::register($this);
                 ],
                 [
                     'class' => 'kartik\grid\ActionColumn',
+                    'template' => '{update} {active} {delete}',
                     'dropdown' => false,
                     'vAlign' => 'middle',
                     'urlCreator' => function ($action, $model, $key, $index) {
@@ -153,6 +154,13 @@ CrudAsset::register($this);
                         'data-toggle' => 'tooltip',
                         'data-confirm-title' => '确认',
                         'data-confirm-message' => 'Are you sure want to delete this item'],
+                    'buttons' => [
+                        'active' => function ($url, $model, $key) {
+                            $icon = Html::tag('span', '', ['class' => 'glyphicon glyphicon-check']);
+                            $option = ['role' => 'modal-remote', 'title' => '通过'];
+                            return Html::a($icon, $url, $option);
+                        }
+                    ],
                 ],
 
             ],
