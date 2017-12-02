@@ -193,45 +193,15 @@ class DocumentController extends Controller
         $model = new $modelClass();
         $model->loadDefaultValues();
 
-        if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($model->load($request->post()) && $model->save()) {
-                return [
-                    'forceReload' => '#crud-datatable-pjax',
-                    'title' => "新增{$modelInfo->title}",
-                    'content' => '<span class="text-success">Create Document success</span>',
-                    'footer' => Html::button('关闭', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::a('继续新增', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
-
-                ];
-            } else {
-                return [
-                    'title' => "新增{$modelInfo->title}",
-                    'content' => $this->renderAjax('create', [
-                        'model' => $model,
-                        'modelInfo' => $modelInfo,
-                    ]),
-                    'footer' => Html::button('关闭', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                        Html::button('保存', ['class' => 'btn btn-primary', 'type' => "submit"])
-
-                ];
-            }
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            /*
-            *   Process for non-ajax request
-            */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                    'modelInfo' => $modelInfo,
-                ]);
-            }
+            return $this->render('create', [
+                'model' => $model,
+                'modelInfo' => $modelInfo,
+            ]);
         }
+
 
     }
 
