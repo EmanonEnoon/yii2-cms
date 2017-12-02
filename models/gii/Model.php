@@ -10,11 +10,9 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $title
- * @property string $namespace
+ * @property string $model_class
  * @property integer $created_at
  * @property integer $updated_at
- *
- * @property Document[] $documents
  */
 class Model extends \yii\db\ActiveRecord
 {
@@ -32,9 +30,9 @@ class Model extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'title', 'namespace'], 'required'],
+            [['name', 'title', 'model_class'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
-            [['name', 'title', 'namespace'], 'string', 'max' => 255],
+            [['name', 'title', 'model_class'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,17 +45,9 @@ class Model extends \yii\db\ActiveRecord
             'id' => '模型id',
             'name' => '模型标识',
             'title' => '模型名字',
-            'namespace' => '命名空间',
+            'model_class' => '命名空间',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDocuments()
-    {
-        return $this->hasMany(Document::className(), ['model_id' => 'id']);
     }
 }
