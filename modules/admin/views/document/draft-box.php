@@ -166,10 +166,10 @@ CrudAsset::register($this);
             'responsive' => true,
             'panel' => [
                 'type' => 'primary',
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Documents listing',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> 草稿列表',
                 'before' => '<em>* 拖动表格边缘来进行缩放.</em>',
                 'after' => BulkButtonWidget::widget([
-                        'buttons' => Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                        'buttons' => Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; 全部删除',
                             ["bulk-delete"],
                             [
                                 "class" => "btn btn-danger btn-xs",
