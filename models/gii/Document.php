@@ -56,7 +56,7 @@ class Document extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'model_id'], 'required'],
-            [['category_id', 'root', 'pid', 'model_id', 'position', 'link_id', 'cover_id', 'display', 'deadline', 'attach', 'view', 'comment', 'extend', 'level', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['category_id', 'root', 'pid', 'model_id', 'position', 'link_id', 'cover_id', 'display', 'deadline', 'attach', 'view', 'comment', 'extend', 'level', 'status', 'created_by', 'updated_by'], 'integer'],
             [['name', 'title', 'description', 'type'], 'string', 'max' => 255],
             [['model_id'], 'exist', 'skipOnError' => true, 'targetClass' => Model::className(), 'targetAttribute' => ['model_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],

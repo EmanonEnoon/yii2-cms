@@ -36,7 +36,7 @@
                         'url' => '#',
                         'items' => [
                             ['label' => '我的文档', 'icon' => 'circle-o', 'url' => ['document/my'],],
-                            ['label' => '草稿箱', 'icon' => 'circle-o', 'url' => ['document/draft'],],
+                            ['label' => '草稿箱', 'icon' => 'circle-o', 'url' => ['document/draft-box'],],
                             ['label' => '待审核', 'icon' => 'circle-o', 'url' => ['document/examine'],],
                         ],
                     ],
@@ -82,8 +82,8 @@
                         'icon' => 'circle-o',
                         'url' => '#',
                         'items' => [
-                            ['label' => '备份数据库', 'icon' => 'circle-o', 'url' => 'database/index-import',],
-                            ['label' => '还原数据库', 'icon' => 'circle-o', 'url' => 'database/index-import',],
+                            ['label' => '备份数据库', 'icon' => 'circle-o', 'url' => ['database/index-export'],],
+                            ['label' => '还原数据库', 'icon' => 'circle-o', 'url' => ['database/index-import'],],
                         ],
                     ],
                 ],

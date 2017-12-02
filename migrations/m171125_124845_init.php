@@ -123,7 +123,7 @@ class m171125_124845_init extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->comment('标识'),
             'title' => $this->string()->notNull()->comment('标题'),
-            'category_id' => $this->integer()->comment('所属分类'),
+            'category_id' => $this->integer()->notNull()->comment('所属分类'),
             'description' => $this->string()->comment('描述'),
             'root' => $this->integer()->comment('根节点'),
             'pid' => $this->integer()->comment('所属ID'),

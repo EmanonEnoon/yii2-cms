@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\controllers\behaviors\AnchorBehavior;
 use app\models\Category;
 use app\models\Document;
 use app\models\Model;
@@ -16,6 +17,8 @@ use yii\web\Response;
 
 /**
  * DocumentController implements the CRUD actions for Document model.
+ * @method void setAnchor see [[AnchorBehavior::setAnchor]] for more detail
+ * @method mixed getAnchor($default = '') see [[AnchorBehavior::getAnchor]] for more detail
  */
 class DocumentController extends Controller
 {
@@ -47,6 +50,7 @@ class DocumentController extends Controller
                     'bulk-delete' => ['post'],
                 ],
             ],
+            AnchorBehavior::className(),
         ];
     }
 
@@ -59,6 +63,8 @@ class DocumentController extends Controller
     {
         $searchModel = new DocumentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $this->setAnchor();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -286,25 +292,7 @@ class DocumentController extends Controller
      */
     public function actionDelete($id)
     {
-        $request = Yii::$app->request;
-        $model = Document::findOne($id)->model;
-        $modelInfo = $model->model;
-        $this->findModel($modelInfo->namespace, $id)->delete();
-
-        if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-        } else {
-            /*
-            *   Process for non-ajax request
-            */
-            return $this->redirect(['index']);
-        }
-
-
+        return $this->changeStatus($id, 'delete');
     }
 
     /**
@@ -340,6 +328,66 @@ class DocumentController extends Controller
 
     }
 
+    /**
+     * 禁用文档
+     * @param int $id
+     * @return mixed
+     */
+    public function actionDisable($id)
+    {
+        return $this->changeStatus($id, 'disable');
+    }
+
+    /**
+     * 启用文档
+     * @param int $id
+     * @return mixed
+     */
+    public function actionActive($id)
+    {
+        return $this->changeStatus($id, 'active');
+    }
+
+    /**
+     * 审核通过文档
+     * @param int $id
+     * @return mixed
+     */
+    public function actionPass($id)
+    {
+        return $this->changeStatus($id, 'pass');
+    }
+
+    /**
+     * 更改文档状态
+     * @param $method
+     * @return array|Response
+     */
+    protected function changeStatus($id, $method)
+    {
+        $request = Yii::$app->request;
+        $model = $this->findModel('app\models\Document', $id);
+        $model->$method();
+
+        if ($request->isAjax) {
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
+        } else {
+            /*
+            *   Process for non-ajax request
+            */
+            return $this->redirect(['index']);
+        }
+
+    }
+
+    /**
+     * 清空回收站
+     * @return mixed
+     */
     public function actionEmptyTrash()
     {
         $request = Yii::$app->request;

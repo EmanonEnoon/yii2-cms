@@ -75,14 +75,15 @@ class Document extends \app\models\gii\Document
     {
         $rules = parent::rules();
         $rules[] = [['status'], 'default', 'value' => self::STATUS_ACTIVE];
-        $rules[] = [['createdDatetime', 'deadlineDatetime'], 'safe'];
+        $rules[] = [['createdAtDatetime'], 'datetime', 'format' => 'php:Y-m-d H:i'];
+        $rules[] = [['deadlineDatetime'], 'datetime', 'format' => 'php:Y-m-d H:i'];
         return $rules;
     }
 
     public function attributeLabels()
     {
         $parent = parent::attributeLabels();
-        $parent['createdDatetime'] = '发布时间';
+        $parent['createdAtDatetime'] = '发布时间';
         $parent['deadlineDatetime'] = '截止时间';
         return $parent;
     }
@@ -113,30 +114,34 @@ class Document extends \app\models\gii\Document
         $this->position = implode(',', $value);
     }
 
-    public function getCreatedDatetime()
+    public function getCreatedAtDatetime()
     {
-        return date('Y-m-d H:i:s', $this->created_at ?: time());
+        if ($this->created_at) {
+            return date('Y-m-d H:i', $this->created_at);
+        }
+        return null;
     }
 
-    public function setCreatedDatetime($datetime)
+    public function setCreatedAtDatetime($value)
     {
-        $this->created_at = strtotime($datetime);
+        $this->created_at = $value ? strtotime($value) : '';
     }
 
     public function getDeadlineDatetime()
     {
         if ($this->deadline) {
-            return date('Y-m-d H:i:s', $this->deadline);
+            return date('Y-m-d H:i', $this->deadline);
         }
         return null;
     }
 
-    public function setDeadlineDatetime($datetime)
+    public function setDeadlineDatetime($value)
     {
-        $this->deadline = strtotime($datetime);
+        $this->deadline = $value ? strtotime($value) : '';
     }
 
     /**
+     * 启用一篇文档
      * @return bool
      */
     public function active()
@@ -146,6 +151,7 @@ class Document extends \app\models\gii\Document
     }
 
     /**
+     * 禁用一篇文档
      * @return bool
      */
     public function disable()
@@ -155,6 +161,7 @@ class Document extends \app\models\gii\Document
     }
 
     /**
+     * 审核通过一篇文档
      * @return bool
      */
     public function pass()
@@ -164,15 +171,21 @@ class Document extends \app\models\gii\Document
     }
 
     /**
+     * 删除一篇文档
      * @return bool
      */
-    public function delete()
+    public function delete($hardDelete = false)
     {
-        $this->status = self::STATUS_DELETE;
-        return $this->save();
+        if ($hardDelete) {
+            return parent::delete();
+        } else {
+            $this->status = self::STATUS_DELETE;
+            return $this->save();
+        }
     }
 
     /**
+     * 清空回收站
      * hard delete
      * @return int
      */

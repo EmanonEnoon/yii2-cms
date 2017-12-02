@@ -29,7 +29,7 @@ use kartik\widgets\DateTimePicker;
 
     <?= $form->field($model->addon, 'bookmark')->textInput() ?>
 
-    <?= $form->field($model, 'createdDatetime')->widget(DateTimePicker::classname(), [
+    <?= $form->field($model, 'createdAtDatetime')->widget(DateTimePicker::classname(), [
         'pluginOptions' => [
             'autoclose' => true
         ]
