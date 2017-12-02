@@ -17,8 +17,9 @@ class DocumentSearch extends Document
     public function rules()
     {
         return [
-            [['id', 'category_id', 'root', 'pid', 'model_id', 'position', 'link_id', 'cover_id', 'display', 'deadline', 'attach', 'view', 'comment', 'extend', 'level', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'category_id', 'root', 'pid', 'model_id', 'position', 'link_id', 'cover_id', 'display', 'deadline', 'attach', 'view', 'comment', 'extend', 'level', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name', 'title', 'description', 'type'], 'safe'],
+            [['status'], 'safe'],
         ];
     }
 

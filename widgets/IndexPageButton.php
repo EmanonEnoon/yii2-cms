@@ -8,9 +8,10 @@
 
 namespace app\widgets;
 
-
+use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class IndexPageButton extends Widget
 {
@@ -31,10 +32,20 @@ class IndexPageButton extends Widget
     {
         $buttons = '';
         foreach ($this->category->allowedModel as $model) {
+            $options = [
+                'role' => 'modal-remote',
+                'title' => 'Create new Documents',
+                'class' => 'btn btn-default',
+            ];
+            if (Yii::$app->controller->id != 'document') {
+                $options['role'] = false;
+                $options['data-pjax'] = 0;
+            }
+
             $buttons .= Html::a(
                 '<i class="glyphicon glyphicon-plus"></i> ' . $model->title,
                 ['create', 'category_id' => $this->category->id, 'model_id' => $model->id],
-                ['role' => 'modal-remote', 'title' => 'Create new Documents', 'class' => 'btn btn-default']
+                $options
             );
         }
         return $buttons;
@@ -42,7 +53,7 @@ class IndexPageButton extends Widget
 
     protected function renderResetButton()
     {
-        return Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
+        return Html::a('<i class="glyphicon glyphicon-repeat"></i>', Url::current(),
             ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']);
     }
 }

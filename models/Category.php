@@ -145,7 +145,7 @@ class Category extends \app\models\gii\Category
         $categories = static::find()->asArray()->all();
 
         return [
-            'label' => '分类',
+            'label' => '写作',
             'icon' => 'circle-o',
             'url' => '#',
             'items' => static::subMenu($categories),

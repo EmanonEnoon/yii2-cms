@@ -12,6 +12,12 @@ namespace app\models;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 
+/**
+ * Class Document
+ * @package app\models
+ * @property integer $toggleStatus
+ * @property string $toggleStatusLabel
+ */
 class Document extends \app\models\gii\Document
 {
     const STATUS_ACTIVE = 1;
@@ -172,6 +178,7 @@ class Document extends \app\models\gii\Document
 
     /**
      * 删除一篇文档
+     * @param bool $hardDelete
      * @return bool
      */
     public function delete($hardDelete = false)
@@ -185,6 +192,16 @@ class Document extends \app\models\gii\Document
     }
 
     /**
+     * 还原一篇文档
+     * @return bool
+     */
+    public function restore()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        return $this->save();
+    }
+
+    /**
      * 清空回收站
      * hard delete
      * @return int
@@ -192,5 +209,59 @@ class Document extends \app\models\gii\Document
     public static function emptyTrash()
     {
         return static::deleteAll(['status' => self::STATUS_DELETE]);
+    }
+
+    /**
+     * 状态切换的标签
+     * @return array
+     */
+    public function toggleStatusLabels()
+    {
+        return [
+            self::STATUS_ACTIVE => self::$statusLabels[self::STATUS_DISABLE],
+            self::STATUS_DISABLE => self::$statusLabels[self::STATUS_ACTIVE],
+            self::STATUS_EXAMINE => self::$statusLabels[self::STATUS_ACTIVE],
+        ];
+    }
+
+    /**
+     * 状态切换的值
+     * @return array
+     */
+    public function toggleStatus()
+    {
+        return [
+            self::STATUS_ACTIVE => self::STATUS_DISABLE,
+            self::STATUS_DISABLE => self::STATUS_ACTIVE,
+            self::STATUS_EXAMINE => self::STATUS_ACTIVE,
+        ];
+    }
+
+    /**
+     * 下一个状态的文标签
+     * @return array|mixed
+     */
+    public function getToggleStatusLabel()
+    {
+        $labels = $this->toggleStatusLabels();
+        if (isset($labels[$this->status])) {
+            return $labels[$this->status];
+        }
+
+        return null;
+    }
+
+    /**
+     * 下一个状态的值
+     * @return mixed|null
+     */
+    public function getToggleStatus()
+    {
+        $nextStatus = $this->toggleStatus();
+        if (isset($nextStatus[$this->status])) {
+            return $nextStatus[$this->status];
+        }
+
+        return null;
     }
 }

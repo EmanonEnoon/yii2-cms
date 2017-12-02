@@ -13,6 +13,7 @@ use yii\widgets\DetailView;
             'id',
             'name',
             'title',
+            'model_class',
             'created_at:datetime',
             'updated_at:datetime',
         ],

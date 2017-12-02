@@ -18,6 +18,10 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+        'rbac' => [
+            'class' => 'mdm\admin\Module',
+            'layout' => 'left-menu'
+        ],
     ],
     'components' => [
         'request' => [
