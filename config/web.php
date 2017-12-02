@@ -5,6 +5,7 @@ $db = require(__DIR__ . '/db.php');
 
 $config = [
     'id' => 'basic',
+    'name' => 'My Application',
     'language' => 'zh-CN',
     'timezone' => 'Asia/Shanghai',
     'basePath' => dirname(__DIR__),
