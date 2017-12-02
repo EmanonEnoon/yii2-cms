@@ -83,7 +83,7 @@ class m171125_124845_init extends Migration
             'id' => $this->primaryKey()->comment('模型id'),
             'name' => $this->string()->notNull()->comment('模型标识'),
             'title' => $this->string()->notNull()->comment('模型名字'),
-            'namespace' => $this->string()->notNull()->comment('命名空间'),
+            'model_class' => $this->string()->notNull()->comment('命名空间'),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
         ], $tableOptions);
@@ -258,7 +258,7 @@ midnight:midnight', 'comment' => '详情见CodeMirror官网', 'created_at' => ti
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->batchInsert($this->tables['model'], ['id', 'name', 'title', 'namespace', 'created_at', 'updated_at'], [
+        $this->batchInsert($this->tables['model'], ['id', 'name', 'title', 'model_class', 'created_at', 'updated_at'], [
             ['1', 'article', '文章', 'app\models\Article', time(), time(),],
             ['2', 'download', '下载', 'app\models\Download', time(), time(),],
         ]);
