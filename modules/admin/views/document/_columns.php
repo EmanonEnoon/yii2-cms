@@ -115,14 +115,14 @@ return [
         'urlCreator' => function ($action, $model, $key, $index) {
             return Url::to([$action, 'id' => $key]);
         },
-        'viewOptions' => ['role' => 'modal-remote', 'title' => 'View', 'data-toggle' => 'tooltip'],
-        'updateOptions' => ['role' => 'modal-remote', 'title' => 'Update', 'data-toggle' => 'tooltip'],
-        'deleteOptions' => ['role' => 'modal-remote', 'title' => 'Delete',
+        'viewOptions' => ['role' => 'modal-remote', 'title' => '查看', 'data-toggle' => 'tooltip'],
+        'updateOptions' => ['role' => 'modal-remote', 'title' => '更新', 'data-toggle' => 'tooltip'],
+        'deleteOptions' => ['role' => 'modal-remote', 'title' => '删除',
             'data-confirm' => false, 'data-method' => false,// for overide yii data api
             'data-request-method' => 'post',
             'data-toggle' => 'tooltip',
             'data-confirm-title' => '确认',
-            'data-confirm-message' => 'Are you sure want to delete this item'],
+            'data-confirm-message' => '确认要删除这些内容吗'],
     ],
 
 ];   

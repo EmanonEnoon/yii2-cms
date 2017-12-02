@@ -44,7 +44,7 @@ return [
                           'data-request-method'=>'post',
                           'data-toggle'=>'tooltip',
                           'data-confirm-title'=>'确认',
-                          'data-confirm-message'=>'Are you sure want to delete this item'], 
+                          'data-confirm-message'=>'确认要删除这些内容吗'],
     ],
 
 ];   

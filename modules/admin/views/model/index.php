@@ -27,9 +27,9 @@ CrudAsset::register($this);
             'toolbar'=> [
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
-                    ['role'=>'modal-remote','title'=> 'Create new Models','class'=>'btn btn-default']).
+                    ['role'=>'modal-remote','title'=> '新增模型','class'=>'btn btn-default']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
-                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
+                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'重置表格']).
                     '{toggleData}'.
                     '{export}'
                 ],
@@ -50,7 +50,7 @@ CrudAsset::register($this);
                                     'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
                                     'data-request-method'=>'post',
                                     'data-confirm-title'=>'确认',
-                                    'data-confirm-message'=>'Are you sure want to delete this item'
+                                    'data-confirm-message'=>'确认要删除这些内容吗'
                                 ]),
                         ]).                        
                         '<div class="clearfix"></div>',

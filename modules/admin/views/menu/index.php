@@ -27,9 +27,9 @@ CrudAsset::register($this);
             'toolbar' => [
                 ['content' =>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
-                        ['role' => 'modal-remote', 'title' => 'Create new Menus', 'class' => 'btn btn-default']) .
+                        ['role' => 'modal-remote', 'title' => '新增菜单', 'class' => 'btn btn-default']) .
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
-                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']) .
+                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => '重置表格']) .
                     '{toggleData}' .
                     '{export}'
                 ],
@@ -40,7 +40,7 @@ CrudAsset::register($this);
             'panel' => [
                 'type' => 'primary',
                 'heading' => '<i class="glyphicon glyphicon-list"></i> Menus listing',
-                'before' => '<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
+                'before' => '<em>* 拖动表格边缘来进行缩放.</em>',
                 'after' => BulkButtonWidget::widget([
                         'buttons' => Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
                             ["bulk-delete"],
@@ -49,8 +49,8 @@ CrudAsset::register($this);
                                 'role' => 'modal-remote-bulk',
                                 'data-confirm' => false, 'data-method' => false,// for overide yii data api
                                 'data-request-method' => 'post',
-                                'data-confirm-title' => 'Are you sure?',
-                                'data-confirm-message' => 'Are you sure want to delete this item'
+                                'data-confirm-title' => '确认？',
+                                'data-confirm-message' => '确认要删除这些内容吗'
                             ]),
                     ]) .
                     '<div class="clearfix"></div>',
