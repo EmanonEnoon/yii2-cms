@@ -2,7 +2,7 @@
 
 use app\models\Document;
 use johnitvn\ajaxcrud\BulkButtonWidget;
-use johnitvn\ajaxcrud\CrudAsset;
+use app\assets\CrudAsset;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;

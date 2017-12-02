@@ -1,10 +1,10 @@
 <?php
-use yii\helpers\Url;
-use yii\helpers\Html;
-use yii\bootstrap\Modal;
-use kartik\grid\GridView;
-use johnitvn\ajaxcrud\CrudAsset; 
+
+use app\assets\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use kartik\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\searches\CategorySearch */
@@ -18,48 +18,49 @@ CrudAsset::register($this);
 ?>
 <div class="category-index">
     <div id="ajaxCrudDatatable">
-        <?=GridView::widget([
-            'id'=>'crud-datatable',
+        <?= GridView::widget([
+            'id' => 'crud-datatable',
             'dataProvider' => $dataProvider,
 //            'filterModel' => $searchModel,
-            'pjax'=>true,
-            'columns' => require(__DIR__.'/_columns.php'),
-            'toolbar'=> [
-                ['content'=>
+            'pjax' => true,
+            'columns' => require(__DIR__ . '/_columns.php'),
+            'toolbar' => [
+                ['content' =>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
-                    ['role'=>'modal-remote','title'=> '新增分类','class'=>'btn btn-default']).
+                        ['role' => 'modal-remote', 'title' => '新增分类', 'class' => 'btn btn-default']) .
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
-                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'重置表格']).
-                    '{toggleData}'.
+                        ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => '重置表格']) .
+                    '{toggleData}' .
                     '{export}'
                 ],
-            ],          
+            ],
             'striped' => true,
             'condensed' => true,
-            'responsive' => true,          
+            'responsive' => true,
             'panel' => [
-                'type' => 'primary', 
+                'type' => 'primary',
                 'heading' => '<i class="glyphicon glyphicon-list"></i> 分类列表',
-                'before'=>'<em>* 拖动表格边缘来进行缩放.</em>',
-                'after'=>BulkButtonWidget::widget([
-                            'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; 全部删除',
-                                ["bulk-delete"] ,
-                                [
-                                    "class"=>"btn btn-danger btn-xs",
-                                    'role'=>'modal-remote-bulk',
-                                    'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
-                                    'data-request-method'=>'post',
-                                    'data-confirm-title'=>'确认',
-                                    'data-confirm-message'=>'确认要删除这些内容吗'
-                                ]),
-                        ]).                        
-                        '<div class="clearfix"></div>',
+                'before' => '<em>* 拖动表格边缘来进行缩放.</em>',
+                'after' => BulkButtonWidget::widget([
+                        'buttons' => Html::a(
+                            '<i class="glyphicon glyphicon-trash"></i>&nbsp; 全部删除',
+                            ["bulk-delete"],
+                            [
+                                "class" => "btn btn-danger btn-xs",
+                                'role' => 'modal-remote-bulk',
+                                'data-confirm' => false, 'data-method' => false,// for overide yii data api
+                                'data-request-method' => 'post',
+                                'data-confirm-title' => '确认',
+                                'data-confirm-message' => '确认要删除这些内容吗'
+                            ]),
+                    ]) .
+                    '<div class="clearfix"></div>',
             ]
-        ])?>
+        ]) ?>
     </div>
 </div>
 <?php Modal::begin([
-    "id"=>"ajaxCrudModal",
-    "footer"=>"",// always need it for jquery plugin
-])?>
+    "id" => "ajaxCrudModal",
+    "footer" => "",// always need it for jquery plugin
+]) ?>
 <?php Modal::end(); ?>

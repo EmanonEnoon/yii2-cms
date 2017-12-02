@@ -119,7 +119,10 @@ return [
             'data-request-method' => 'post',
             'data-toggle' => 'tooltip',
             'data-confirm-title' => '确认',
-            'data-confirm-message' => '确认要删除这些内容吗'],
+            'data-confirm-message' => '确认要删除这些内容吗',
+            'data-confirm-ok' => '确认',
+            'data-confirm-cancel' => '取消',
+        ],
         'buttons' => [
             'create' => function ($url, $model, $key) {
                 $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-plus"]);

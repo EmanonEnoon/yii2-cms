@@ -1,8 +1,8 @@
 <?php
 
+use app\assets\CrudAsset;
 use app\widgets\DocumentIndexPageButton;
 use johnitvn\ajaxcrud\BulkButtonWidget;
-use johnitvn\ajaxcrud\CrudAsset;
 use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
@@ -76,7 +76,10 @@ CrudAsset::register($this);
                         'data-request-method' => 'post',
                         'data-toggle' => 'tooltip',
                         'data-confirm-title' => '确认',
-                        'data-confirm-message' => '确认要删除这些内容吗'],
+                        'data-confirm-message' => '确认要删除这些内容吗',
+                        'data-confirm-ok' => '确认',
+                        'data-confirm-cancel' => '取消',
+                    ],
                 ],
 
             ],
@@ -90,7 +93,7 @@ CrudAsset::register($this);
             'responsive' => true,
             'panel' => [
                 'type' => 'primary',
-                'heading' => '<i class="glyphicon glyphicon-list"></i> '.$category->title. '列表',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> ' . $category->title . '列表',
                 'before' => '<em>* 拖动表格边缘来进行缩放.</em>',
                 'after' => BulkButtonWidget::widget([
                         'buttons' => Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; 全部删除',
