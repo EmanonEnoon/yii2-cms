@@ -85,6 +85,12 @@ $config = [
         ],
     ],
     'params' => $params,
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {
