@@ -13,7 +13,7 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-class IndexPageButton extends Widget
+class DocumentIndexPageButton extends Widget
 {
     /**
      * @var \app\models\Category
@@ -34,11 +34,12 @@ class IndexPageButton extends Widget
         foreach ($this->category->allowedModel as $model) {
             $options = [
                 'role' => 'modal-remote',
-                'title' => 'Create new Documents',
+                'title' => '新增'. $model->title,
                 'class' => 'btn btn-default',
             ];
-            if (Yii::$app->controller->id != 'document') {
-                $options['role'] = false;
+
+            if (Yii::$app->controller->id == 'document') {
+                $options['role'] = 0;
                 $options['data-pjax'] = 0;
             }
 
@@ -54,6 +55,6 @@ class IndexPageButton extends Widget
     protected function renderResetButton()
     {
         return Html::a('<i class="glyphicon glyphicon-repeat"></i>', Url::current(),
-            ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => 'Reset Grid']);
+            ['data-pjax' => 1, 'class' => 'btn btn-default', 'title' => '重置表格']);
     }
 }

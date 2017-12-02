@@ -1,6 +1,6 @@
 <?php
 
-use app\widgets\IndexPageButton;
+use app\widgets\DocumentIndexPageButton;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 use johnitvn\ajaxcrud\CrudAsset;
 use kartik\grid\GridView;
@@ -31,18 +31,10 @@ CrudAsset::register($this);
                     'class' => 'kartik\grid\CheckboxColumn',
                     'width' => '20px',
                 ],
-//    [
-//        'class' => 'kartik\grid\SerialColumn',
-//        'width' => '30px',
-//    ],
                 [
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'id',
                 ],
-//    [
-//        'class' => '\kartik\grid\DataColumn',
-//        'attribute' => 'name',
-//    ],
                 [
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'title',
@@ -56,71 +48,6 @@ CrudAsset::register($this);
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'level',
                 ],
-//    [
-//        'class' => '\kartik\grid\DataColumn',
-//        'attribute' => 'category_id',
-//        'value' => 'category.title',
-//    ],
-//    [
-//        'class' => '\kartik\grid\DataColumn',
-//        'attribute' => 'description',
-//    ],
-//    [
-//        'class' => '\kartik\grid\DataColumn',
-//        'attribute' => 'root',
-//    ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'pid',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'model_id',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'position',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'link_id',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'cover_id',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'display',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'deadline',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'attach',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'comment',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'extend',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'created_at:datetime',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'updated_at:datetime',
-                // ],
-                // [
-                // 'class'=>'\kartik\grid\DataColumn',
-                // 'attribute'=>'created_by',
-                // ],
                 [
                     'class' => '\kartik\grid\DataColumn',
                     'attribute' => 'updated_by',
@@ -155,7 +82,7 @@ CrudAsset::register($this);
             ],
             'toolbar' => [
                 [
-                    'content' => IndexPageButton::widget(['category' => $category])
+                    'content' => DocumentIndexPageButton::widget(['category' => $category])
                 ],
             ],
             'striped' => true,
