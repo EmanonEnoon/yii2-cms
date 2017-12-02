@@ -47,7 +47,7 @@ class RoleController extends ItemController
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Role #" . $id,
+                'title' => "角色 #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -75,7 +75,7 @@ class RoleController extends ItemController
             if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Role",
+                    'title'=> "新增角色",
                     'content'=>'<span class="text-success">Create Role success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                         Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
@@ -83,7 +83,7 @@ class RoleController extends ItemController
                 ];
             }else{
                 return [
-                    'title'=> "Create new Role",
+                    'title'=> "新增角色",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -119,7 +119,7 @@ class RoleController extends ItemController
             if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Model #".$id,
+                    'title'=> "角色 #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -128,7 +128,7 @@ class RoleController extends ItemController
                 ];
             }else{
                 return [
-                    'title'=> "Update Role #".$id,
+                    'title'=> "更新角色 #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

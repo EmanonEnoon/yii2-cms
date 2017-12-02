@@ -81,7 +81,7 @@ class ConfigController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Config #" . $id,
+                'title' => "配置 #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -114,7 +114,7 @@ class ConfigController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Create new Config",
+                    'title' => "新增配置",
                     'content' => '<span class="text-success">Create Config success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -122,7 +122,7 @@ class ConfigController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Create new Config",
+                    'title' => "新增配置",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -166,7 +166,7 @@ class ConfigController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Config #" . $id,
+                    'title' => "配置 #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -175,7 +175,7 @@ class ConfigController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Update Config #" . $id,
+                    'title' => "更新配置 #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),

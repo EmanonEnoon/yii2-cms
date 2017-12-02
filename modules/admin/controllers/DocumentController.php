@@ -61,10 +61,11 @@ class DocumentController extends Controller
      */
     public function actionIndex($category_id)
     {
+        $this->setAnchor();
+
         $searchModel = new DocumentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $this->setAnchor();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -79,6 +80,8 @@ class DocumentController extends Controller
      */
     public function actionMy()
     {
+        $this->setAnchor();
+
         $searchModel = new DocumentSearch([
             'created_by' => Yii::$app->user->id,
             'status' => [
@@ -101,6 +104,8 @@ class DocumentController extends Controller
      */
     public function actionDraftBox()
     {
+        $this->setAnchor();
+
         $searchModel = new DocumentSearch(['status' => Document::STATUS_DRAFT]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -116,6 +121,8 @@ class DocumentController extends Controller
      */
     public function actionExamine()
     {
+        $this->setAnchor();
+
         $searchModel = new DocumentSearch(['status' => Document::STATUS_EXAMINE]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -150,12 +157,12 @@ class DocumentController extends Controller
     {
         $request = Yii::$app->request;
         $modelInfo = Document::findOne($id)->model;
-        $model = $this->findModel($modelInfo->namespace, $id);
+        $model = $this->findModel($modelInfo->model_class, $id);
 
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Document #" . $id,
+                'title' => $modelInfo->title . " #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $model,
                     'modelInfo' => $modelInfo,
@@ -181,7 +188,7 @@ class DocumentController extends Controller
     {
         $request = Yii::$app->request;
         $modelInfo = Model::findOne($model_id);
-        $modelClass = $modelInfo->namespace;
+        $modelClass = $modelInfo->model_class;
         /** @var \app\models\Document $model */
         $model = new $modelClass();
         $model->loadDefaultValues();
@@ -239,7 +246,7 @@ class DocumentController extends Controller
     {
         $request = Yii::$app->request;
         $modelInfo = Document::findOne($id)->model;
-        $model = $this->findModel($modelInfo->namespace, $id);
+        $model = $this->findModel($modelInfo->model_class, $id);
 
         if ($request->isAjax) {
             /*
@@ -249,7 +256,7 @@ class DocumentController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Document #" . $id,
+                    'title' => "$modelInfo->title #$id",
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                         'modelInfo' => $modelInfo,
@@ -259,7 +266,7 @@ class DocumentController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Update Document #" . $id,
+                    'title' => "更新 $modelInfo->title #$id",
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                         'modelInfo' => $modelInfo,
@@ -309,7 +316,7 @@ class DocumentController extends Controller
         $model = Document::findOne(reset($pks))->model;
         $modelInfo = $model->model;
         foreach ($pks as $pk) {
-            $model = $this->findModel($modelInfo->namespace, $pk);
+            $model = $this->findModel($modelInfo->model_class, $pk);
             $model->delete();
         }
 
@@ -359,6 +366,16 @@ class DocumentController extends Controller
     }
 
     /**
+     * 从回收站还原
+     * @param $id
+     * @return array|Response
+     */
+    public function actionRestore($id)
+    {
+        return $this->changeStatus($id, 'restore');
+    }
+
+    /**
      * 更改文档状态
      * @param $method
      * @return array|Response
@@ -379,7 +396,7 @@ class DocumentController extends Controller
             /*
             *   Process for non-ajax request
             */
-            return $this->redirect(['index']);
+            return $this->redirect($this->getAnchor());
         }
 
     }

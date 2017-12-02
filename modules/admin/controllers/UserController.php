@@ -61,7 +61,7 @@ class UserController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "User #" . $id,
+                'title' => "用户 #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -94,7 +94,7 @@ class UserController extends Controller
             if ($model->load($request->post()) && $model->signup()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Create new User",
+                    'title' => "新增用户",
                     'content' => '<span class="text-success">Create User success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -102,7 +102,7 @@ class UserController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Create new User",
+                    'title' => "新增用户",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -147,7 +147,7 @@ class UserController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "User #" . $id,
+                    'title' => "用户 #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -156,7 +156,7 @@ class UserController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Update User #" . $id,
+                    'title' => "更新用户 #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),

@@ -59,7 +59,7 @@ class MenuController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Menu #".$id,
+                    'title'=> "菜单 #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -92,7 +92,7 @@ class MenuController extends Controller
             if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Menu",
+                    'title'=> "新增菜单",
                     'content'=>'<span class="text-success">Create Menu success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
@@ -100,7 +100,7 @@ class MenuController extends Controller
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new Menu",
+                    'title'=> "新增菜单",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -144,7 +144,7 @@ class MenuController extends Controller
             if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Menu #".$id,
+                    'title'=> "菜单 #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -153,7 +153,7 @@ class MenuController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update Menu #".$id,
+                    'title'=> "更新菜单 #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),

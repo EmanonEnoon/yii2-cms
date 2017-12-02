@@ -63,7 +63,7 @@ class CategoryController extends Controller
         if ($request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                'title' => "Category #" . $id,
+                'title' => "分类 #" . $id,
                 'content' => $this->renderAjax('view', [
                     'model' => $this->findModel($id),
                 ]),
@@ -98,7 +98,7 @@ class CategoryController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Create new Category",
+                    'title' => "创建新分类",
                     'content' => '<span class="text-success">Create Category success</span>',
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                         Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
@@ -106,7 +106,7 @@ class CategoryController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Create new Category",
+                    'title' => "创建新分类",
                     'content' => $this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -150,7 +150,7 @@ class CategoryController extends Controller
             if ($model->load($request->post()) && $model->save()) {
                 return [
                     'forceReload' => '#crud-datatable-pjax',
-                    'title' => "Category #" . $id,
+                    'title' => "分类 #" . $id,
                     'content' => $this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -159,7 +159,7 @@ class CategoryController extends Controller
                 ];
             } else {
                 return [
-                    'title' => "Update Category #" . $id,
+                    'title' => "更新分类 #" . $id,
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
