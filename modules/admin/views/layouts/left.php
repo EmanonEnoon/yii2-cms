@@ -15,9 +15,9 @@
         </div>
 
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="#" method="get" class="sidebar-form" data-action="<?= \yii\helpers\Url::to(['menu/search']) ?>">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                <input type="text" name="q" class="form-control" placeholder="Search..." autocomplete="off"/>
                 <span class="input-group-btn">
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -28,65 +28,8 @@
 
         <?= dmstr\widgets\Menu::widget(
             [
-                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
-                'items' => [
-                    [
-                        'label' => '个人中心',
-                        'icon' => 'circle-o',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => '我的文档', 'icon' => 'circle-o', 'url' => ['document/my'],],
-                            ['label' => '草稿箱', 'icon' => 'circle-o', 'url' => ['document/draft-box'],],
-                            ['label' => '待审核', 'icon' => 'circle-o', 'url' => ['document/examine'],],
-                        ],
-                    ],
-                    \app\models\Category::menu(),
-                    [
-                        'label' => '文档回收站',
-                        'icon' => 'circle-o',
-                        'url' => ['document/recycle'],
-                    ],
-                    [
-                        'label' => '用户管理',
-                        'icon' => 'circle-o',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => '用户信息', 'icon' => 'circle-o', 'url' => ['user/index'],],
-                            ['label' => '权限管理', 'icon' => 'circle-o', 'url' => ['role/index'],],
-                        ],
-                    ],
-                    [
-                        'label' => '用户行为',
-                        'icon' => 'circle-o',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => '用户行为', 'icon' => 'circle-o', 'url' => '#',],
-                            ['label' => '行为日志', 'icon' => 'circle-o', 'url' => '#',],
-                        ],
-                    ],
-                    [
-                        'label' => '系统设置',
-                        'icon' => 'circle-o',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => '网站设置', 'icon' => 'circle-o', 'url' => ['config/group'],],
-                            ['label' => '分类管理', 'icon' => 'circle-o', 'url' => ['category/index'],],
-                            ['label' => '模型管理', 'icon' => 'circle-o', 'url' => ['model/index'],],
-                            ['label' => '配置管理', 'icon' => 'circle-o', 'url' => ['config/index'],],
-                            ['label' => '菜单管理', 'icon' => 'circle-o', 'url' => ['menu/index'],],
-                            ['label' => '导航管理', 'icon' => 'circle-o', 'url' => ['nav/index'],],
-                        ],
-                    ],
-                    [
-                        'label' => '数据库',
-                        'icon' => 'circle-o',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => '备份数据库', 'icon' => 'circle-o', 'url' => ['database/index-export'],],
-                            ['label' => '还原数据库', 'icon' => 'circle-o', 'url' => ['database/index-import'],],
-                        ],
-                    ],
-                ],
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree', 'id' => 'sidebar-menu'],
+                'items' => \app\helpers\MenuHelper::getAssignedMenu(Yii::$app->user->id),
             ]
         ) ?>
 

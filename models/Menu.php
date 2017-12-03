@@ -24,7 +24,7 @@ class Menu extends \app\models\gii\Menu
     {
         $rules = parent::rules();
         $rules[] = [['parent_id'], 'exist', 'targetAttribute' => 'id'];
-        $rules[] = [['name', 'route', 'data'], 'trim', 'trim'];
+        $rules[] = [['name', 'route', 'data'], 'filter', 'filter' => 'trim'];
         $rules[] = [['route'], 'in', 'range' => \mdm\admin\models\Menu::getSavedRoutes(), 'message' => 'Route "{value}" not found.'];
         $rules[] = [['level'], 'filter', 'filter' => function ($value) {
             $value = 1;
