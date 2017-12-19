@@ -13,6 +13,8 @@ namespace app\models;
 /**
  * Class Article
  * @property ArticleAddon $addon
+ * @property Article $prev
+ * @property Article $next
  */
 class Article extends Document
 {

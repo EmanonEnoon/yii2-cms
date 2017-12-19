@@ -17,6 +17,8 @@ use yii\behaviors\TimestampBehavior;
  * @package app\models
  * @property integer $toggleStatus
  * @property string $toggleStatusLabel
+ * @property Document $prev
+ * @property Document $next
  */
 class Document extends \app\models\gii\Document
 {
@@ -264,4 +266,24 @@ class Document extends \app\models\gii\Document
 
         return null;
     }
+
+    /**
+     * 返回上一篇文档
+     * @return static
+     */
+    public function getPrev()
+    {
+        return static::find()->where(['<', 'id', $this->id])->limit(1)->one();
+    }
+
+    /**
+     * 返回下一篇文档
+     * @return static
+     */
+    public function getNext()
+    {
+        return static::find()->where(['>', 'id', $this->id])->limit(1)->one();
+    }
+
+
 }

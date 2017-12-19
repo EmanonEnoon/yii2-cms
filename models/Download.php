@@ -12,6 +12,8 @@ namespace app\models;
 /**
  * Class Download
  * @property DownloadAddon $addon
+ * @property Download $prev
+ * @property Download $next
  */
 class Download extends Document
 {
