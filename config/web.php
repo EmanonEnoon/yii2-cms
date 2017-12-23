@@ -15,6 +15,9 @@ $config = [
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
+        'webshell' => [
+            'class' => 'samdark\webshell\Module',
+        ],
         // app module
         'admin' => [
             'class' => 'app\modules\admin\Module',
@@ -89,7 +92,7 @@ $config = [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'site/*',
+            '*',
         ]
     ]
 ];
