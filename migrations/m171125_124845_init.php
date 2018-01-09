@@ -293,7 +293,7 @@ midnight:midnight', 'comment' => '详情见CodeMirror官网', 'created_at' => ti
         $this->batchInsert($this->tables['menu'], ['id', 'name', 'parent_id', 'route', 'level', 'order'], [
             ['1', '个人中心', null, null, 1, 1],
             ['2', '我的文档', 1, '/admin/document/my', 2, 0],
-            ['3', '草稿箱', 1, '/admin/document/recycle-bin', 2, 0],
+            ['3', '草稿箱', 1, '/admin/document/draft-box', 2, 0],
             ['4', '待审核', 1, '/admin/document/examine', 2, 0],
             ['5', '回收站', null, '/admin/document/recycle-bin', 1, 2],
             ['6', '用户管理', null, null, 1, 3],
