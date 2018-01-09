@@ -13,16 +13,19 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 
 /**
- * This command echoes the first argument that you have entered.
+ * 开发工具
  *
- * This command is provided as an example for you to learn how to create console commands.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
  */
 class GController extends Controller
 {
+    /**
+     * @var string
+     */
     public $table;
+
+    /**
+     * @var string
+     */
     public $model;
 
     public function options($actionID)
@@ -30,6 +33,16 @@ class GController extends Controller
         return array_merge(parent::options($actionID), [
             'table', 'model'
         ]);
+    }
+
+    protected function getTables()
+    {
+        $tables = Yii::$app->db->createCommand('show tables')->queryAll();
+        $tables = ArrayHelper::getColumn($tables, function ($element) {
+            return reset($element);
+        });
+
+        return $tables;
     }
 
     /**
@@ -41,33 +54,32 @@ class GController extends Controller
         echo $message . "\n";
     }
 
+    /**
+     * 生成model
+     */
     public function actionM()
     {
         if ($this->table) {
+            $tables[] = $this->table;
+        } else {
+            $tables = $this->getTables();
+        }
+
+        foreach ($tables as $table) {
             Yii::$app->runAction('gii/model', [
                 'interactive' => false,
-                'tableName' => $this->table,
-                'modelClass' => Inflector::camelize($this->table),
+                'tableName' => $table,
+                'modelClass' => Inflector::camelize($table),
                 'ns' => 'app\models\gii',
                 'generateLabelsFromComments' => true,
                 'useTablePrefix' => true,
             ]);
-        } else {
-            $tables = Yii::$app->db->createCommand('show tables')->queryAll();
-            $tables = ArrayHelper::getColumn($tables, 'Tables_in_yii2basic');
-            foreach ($tables as $table) {
-                Yii::$app->runAction('gii/model', [
-                    'interactive' => false,
-                    'tableName' => $table,
-                    'modelClass' => Inflector::camelize($table),
-                    'ns' => 'app\models\gii',
-                    'generateLabelsFromComments' => true,
-                    'useTablePrefix' => true,
-                ]);
-            }
         }
     }
 
+    /**
+     * 生成ajax的控制器和视图
+     */
     public function actionAjaxCrud()
     {
         if ($this->model) {
@@ -93,10 +105,12 @@ class GController extends Controller
         }
     }
 
-    public function actionR()
+    /**
+     * 重新安装数据库
+     */
+    public function actionFresh()
     {
-        Yii::$app->runAction('migrate/down', ['interactive' => false, 'migrationPath' => '@yii/rbac/migrations']);
-        Yii::$app->runAction('migrate/down', ['interactive' => false, 'migrationPath' => '@yii/rbac/migrations']);
+        Yii::$app->runAction('migrate/down', [2, 'interactive' => false, 'migrationPath' => '@yii/rbac/migrations']);
         Yii::$app->runAction('migrate/down', ['interactive' => false]);
 
         Yii::$app->runAction('migrate/up', ['interactive' => false]);
