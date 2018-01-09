@@ -2,15 +2,16 @@
 
 namespace app\helpers;
 
-use Yii;
-use yii\caching\TagDependency;
+use app\models\Category;
 use mdm\admin\components\Configs;
 use mdm\admin\models\Menu;
+use Yii;
+use yii\caching\TagDependency;
 
 /**
  * MenuHelper used to generate menu depend of user role.
  * Usage
- * 
+ *
  * ```
  * use mdm\admin\components\MenuHelper;
  * use yii\bootstrap\Nav;
@@ -19,9 +20,9 @@ use mdm\admin\models\Menu;
  *    'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id)
  * ]);
  * ```
- * 
+ *
  * To reformat returned, provide callback to method.
- * 
+ *
  * ```
  * $callback = function ($menu) {
  *    $data = eval($menu['data']);
@@ -48,7 +49,7 @@ class MenuHelper
      * @param integer $root
      * @param \Closure $callback use to reformat output.
      * callback should have format like
-     * 
+     *
      * ```
      * function ($menu) {
      *    return [
@@ -60,7 +61,7 @@ class MenuHelper
      *    ]
      * }
      * ```
-     * @param boolean  $refresh
+     * @param boolean $refresh
      * @return array
      */
     public static function getAssignedMenu($userId, $root = null, $callback = null, $refresh = false)
@@ -137,6 +138,7 @@ class MenuHelper
             }
         }
 
+        self::insertCategory($result);
         return $result;
     }
 
@@ -203,7 +205,7 @@ class MenuHelper
                     $item = call_user_func($callback, $menu);
                 } else {
                     $item = [
-                        'label' => Yii::t('rbac-admin',$menu['name']),
+                        'label' => Yii::t('rbac-admin', $menu['name']),
                         'url' => static::parseRoute($menu['route']),
                     ];
                     if ($menu['children'] != []) {
@@ -219,5 +221,10 @@ class MenuHelper
         }
 
         return $result;
+    }
+
+    private static function insertCategory(&$items)
+    {
+        array_splice($items, 1, 0, [Category::menu()]);
     }
 }
