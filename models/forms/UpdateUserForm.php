@@ -11,6 +11,11 @@ namespace app\models\forms;
 use app\models\User;
 use yii\base\Model;
 
+/**
+ * Class UpdateUserForm
+ * @package app\models\forms
+ * @property User $user
+ */
 class UpdateUserForm extends Model
 {
     public $username;
@@ -61,6 +66,11 @@ class UpdateUserForm extends Model
     public function setUser($value)
     {
         $this->_user = $value;
+    }
+
+    public function getUser()
+    {
+        return $this->_user;
     }
 
     public function save()

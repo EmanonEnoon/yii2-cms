@@ -169,7 +169,7 @@ class UserController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->user->id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
