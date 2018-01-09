@@ -2,12 +2,28 @@
 
 重复造轮子，我这个轮子，又大又圆
 
-### 注意
+### 使用
 
-请新建一个数据库，在当前数据库操作会清空所有表
+配置 `config/db.php`
+```
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+];
+```
+如果数据库不存在需要手动创建数据库
 
+初始化数据库
 ```
 yii app/init
+```
+
+```
+username:admin
+password:123456
 ```
 
 
