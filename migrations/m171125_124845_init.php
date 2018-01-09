@@ -289,6 +289,30 @@ midnight:midnight', 'comment' => '详情见CodeMirror官网', 'created_at' => ti
             'document_id' => '1',
             'content' => '轮子',
         ]);
+
+        $this->batchInsert($this->tables['menu'], ['id', 'name', 'parent_id', 'route', 'level', 'order'], [
+            ['1', '个人中心', null, null, 1, 1],
+            ['2', '我的文档', 1, '/admin/document/my', 2, 0],
+            ['3', '草稿箱', 1, '/admin/document/recycle-bin', 2, 0],
+            ['4', '待审核', 1, '/admin/document/examine', 2, 0],
+            ['5', '回收站', null, '/admin/', 1, 2],
+            ['6', '用户管理', null, null, 1, 3],
+            ['7', '用户信息', '6', '/admin/user/index', 2, 0],
+            ['8', '权限管理', '6', '/admin/user/permission', 2, 0],
+            ['9', '行为日志', null, '/to-do', 1, 4],
+            ['10', '系统设置', null, null, 1, 5],
+            ['11', '网站设置', '10', '/admin/config/group', 2, 0],
+            ['12', '分类管理', '10', '/admin/category/index', 2, 0],
+            ['13', '模型管理', '10', '/admin/model/index', 2, 0],
+            ['14', '配置管理', '10', '/admin/config/index', 2, 0],
+            ['15', '菜单管理', '10', '/admin/menu/index', 2, 0],
+            ['16', '导航管理', '10', '/admin/to-do', 2, 0],
+            ['17', '数据备份', null, null, 1, 6],
+            ['18', '备份数据库', '17', '/admin/database/index-export', 2, 0],
+            ['19', '还原数据库', '17', '/admin/database/index-import', 2, 0],
+        ]);
+
+
     }
 
     /**
