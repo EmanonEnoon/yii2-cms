@@ -75,7 +75,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * Lists all Document models by login user.
+     * 我的文档
      * @return string
      */
     public function actionMy()
@@ -99,7 +99,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * Lists all Document models by login user.
+     * 草稿箱
      * @return string
      */
     public function actionDraftBox()
@@ -133,10 +133,10 @@ class DocumentController extends Controller
     }
 
     /**
-     * Lists all Document models by login user.
+     * 回收站
      * @return string
      */
-    public function actionRecycle()
+    public function actionRecycleBin()
     {
         $searchModel = new DocumentSearch(['status' => Document::STATUS_DELETE]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
