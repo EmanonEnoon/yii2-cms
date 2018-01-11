@@ -273,7 +273,7 @@ class Document extends \app\models\gii\Document
      */
     public function getPrev()
     {
-        return static::find()->where(['<', 'id', $this->id])->limit(1)->one();
+        return static::find()->where(['<', 'id', $this->id])->orderBy('id')->limit(1)->one();
     }
 
     /**
@@ -282,7 +282,7 @@ class Document extends \app\models\gii\Document
      */
     public function getNext()
     {
-        return static::find()->where(['>', 'id', $this->id])->limit(1)->one();
+        return static::find()->where(['>', 'id', $this->id])->orderBy('id')->limit(1)->one();
     }
 
 
