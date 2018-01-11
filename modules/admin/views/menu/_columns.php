@@ -47,6 +47,7 @@ return [
 //    ],
     [
         'class' => 'kartik\grid\ActionColumn',
+        'width' => 'width:5%',
         'template' => '{create} {view} {update} {delete}',
         'dropdown' => false,
         'vAlign' => 'middle',
