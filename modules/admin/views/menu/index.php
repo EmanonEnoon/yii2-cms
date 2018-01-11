@@ -10,7 +10,7 @@ use yii\helpers\Html;
 /* @var $searchModel app\models\searches\MenuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Menus';
+$this->title = '菜单管理';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
