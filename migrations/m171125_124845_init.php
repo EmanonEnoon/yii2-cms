@@ -90,10 +90,12 @@ class m171125_124845_init extends Migration
         $this->createTable($this->tables['channel'], [
             'id' => $this->primaryKey(),
             'parent_id' => $this->integer()->comment('上级频道'),
+            'type' => $this->smallInteger(6)->comment('类型'),
             'title' => $this->string()->notNull()->comment('频道标题'),
             'url' => $this->string()->comment('频道标题'),
             'order' => $this->integer()->comment('排序'),
             'target' => $this->string()->comment('是否新窗口打开'),
+
         ], $tableOptions);
         $this->createTable($this->tables['category'], [
             'id' => $this->primaryKey(),
@@ -311,7 +313,11 @@ midnight:midnight', 'comment' => '详情见CodeMirror官网', 'created_at' => ti
             ['18', '备份数据库', '17', '/admin/database/index-export', 2, 0],
             ['19', '还原数据库', '17', '/admin/database/index-import', 2, 0],
         ]);
-
+        $this->batchInsert($this->tables['channel'], ['id', 'parent_id', 'type', 'title', 'url', 'order', 'target'], [
+            [1, null, 1, '首页', '/site/index', '1', 0],
+            [2, null, 1, '博客', '/article/index?category_id=1', '1', 0],
+            [3, null, 1, '官网', 'https://github.com/osenyursa/yii2cms', '1', 0],
+        ]);
 
     }
 
